@@ -101,6 +101,10 @@ jobs:
       - name: Print Docker tags
         run: |
           echo $DOCKER_METADATA_OUTPUT_TAGS
+
+      - name: Printf
+        run: |
+          printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *
       
       - name: Create manifest list and push
         working-directory: /tmp/digests
