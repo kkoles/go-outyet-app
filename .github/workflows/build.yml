@@ -2,24 +2,23 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+*"
+    branches: 
+      - "main"
 
 env:
   REGISTRY_IMAGE: kkoles/outyet
-  IMAGE_APP_VERSION: 2.0.0
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     environment: dev
+    runs-on: ${{ matrix.target.os }}
     strategy:
-      fail-fast: false
       matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
+        target:
+          - { os: "ubuntu-20.04", arch: "amd64" }
+          - { os: "ubuntu-latest", arch: "arm64" }
       
     steps:
       - name: Checkout project
@@ -48,8 +47,9 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          platforms: ${{ matrix.platform }}
-          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/${{ matrix.target.arch }}
+          # labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
 
       
