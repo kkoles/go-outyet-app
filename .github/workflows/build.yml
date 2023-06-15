@@ -4,8 +4,8 @@ on:
   push:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+*"
-    branches: 
-      - "main"
+    # branches: 
+    #   - "main"
 
 env:
   REGISTRY_IMAGE: kkoles/outyet
@@ -49,7 +49,6 @@ jobs:
           context: .
           platforms: linux/${{ matrix.target.arch }}
           labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ steps.meta.outputs.tags }}
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
 
       
