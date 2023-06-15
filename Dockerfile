@@ -22,7 +22,8 @@ RUN CGO_ENABLED=0 go build -o /go/bin/app
 # Copy the app to distroless image
 ##################################################
 
-FROM gcr.io/distroless/static-debian11:nonroot
+# FROM gcr.io/distroless/static-debian11:nonroot
+FROM golang:1.15
 
 COPY --from=builder /go/bin/app /
 
