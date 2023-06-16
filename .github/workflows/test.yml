@@ -22,10 +22,14 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@v3
 
+      - name: Set tag
+        run: echo "tag=${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
+        id: vars
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY_IMAGE }}
           tags: |
-            ${GITHUB_SHA::8}
+            ${{ steps.vars.outputs.tag}}
