@@ -1,0 +1,29 @@
+name: Docker Test Image CI
+
+on:
+  push:
+    branches:
+      - "main"
+
+env:
+  REGISTRY_IMAGE: kkoles/outyet
+
+jobs:
+  build:
+    environment: dev
+    runs-on: ${{ matrix.target.os }}
+    strategy:
+      matrix:
+        target:
+          - { os: "ubuntu-20.04", arch: "amd64" }
+          - { os: "ubuntu-latest", arch: "arm64" }
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
