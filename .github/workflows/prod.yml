@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+*"
-    # branches: 
-    #   - "main"
 
 env:
   REGISTRY_IMAGE: kkoles/outyet
@@ -48,7 +46,6 @@ jobs:
         with:
           context: .
           platforms: linux/${{ matrix.target.arch }}
-          # labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
 
       
@@ -66,7 +63,7 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-  merge:
+  merge-digests:
     runs-on: ubuntu-latest
     needs:
       - build
