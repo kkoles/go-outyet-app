@@ -28,4 +28,4 @@ jobs:
         with:
           images: ${{ env.REGISTRY_IMAGE }}
           tags: |
-            ${{GITHUB_SHA::8}}
+            ${GITHUB_SHA::8}
