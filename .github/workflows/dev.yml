@@ -32,7 +32,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY_IMAGE }}
           tags: |
-            ${{ steps.vars.outputs.tag}}, latest
+            ${{ steps.vars.outputs.tag}}
+            latest
       
   #     - name: Set up QEMU
   #       uses: docker/setup-qemu-action@v2
