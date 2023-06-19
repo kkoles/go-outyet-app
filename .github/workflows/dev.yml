@@ -69,6 +69,11 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+      - name: Clean digests directory
+        if: always()
+        run: |
+          rm -rf /tmp/digests/*
+
   merge-digests:
     runs-on: ubuntu-latest
     needs:
