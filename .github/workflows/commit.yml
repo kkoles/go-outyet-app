@@ -30,7 +30,7 @@ jobs:
       - name: Commit file
         run: |
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-          git config --global user.email "frekqww3@users.noreply.github.com"        
+          git config --global user.email "$GITHUB_TRIGGERING_ACTOR@users.noreply.github.com"        
           git add test.txt
           git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
           git push origin $GITHUB_HEAD_REF
