@@ -1,0 +1,35 @@
+name: Commit File
+
+on:
+#   push:
+#     branches:
+#       - main
+  pull_request:
+    branches: ["main"]
+    types: [closed, opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  commit-file:
+    env:
+      CI_COMMIT_MESSAGE: Continuous Integration File Update
+      CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} Continuous Integration
+    name: Generate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create File
+        run: |
+          echo ${{ github.ref }} >> test.txt
+
+      - name: Display event name
+        run: echo "github.event_name=${{ github.event_name }}"
+
+      - name: Commit file
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "frekqww3@users.noreply.github.com"        
+          git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
+          git push
