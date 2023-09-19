@@ -1,17 +1,17 @@
 name: Commit File
 
 on:
-#   push:
-#     branches:
-#       - main
   pull_request:
     branches: ["main"]
-    types: [closed, opened, synchronize, reopened]
-  workflow_dispatch:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '**.py'
+      - 'poetry.lock'
+      - 'pyproject.toml'
 
 jobs:
-  commit-file:
-    name: Generate
+  update-file:
+    name: Update
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
