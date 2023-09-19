@@ -26,11 +26,16 @@ jobs:
 
       - name: Env
         run: env
+
+      - name: Echo
+        run: |
+            echo $GITHUB_HEAD_REF
+            echo $GITHUB_TRIGGERING_ACTOR
    
       - name: Commit file
         run: |
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-          git config --global user.email "${{ env.GITHUB_TRIGGERING_ACTOR}}@users.noreply.github.com"     
+          git config --global user.email "$GITHUB_TRIGGERING_ACTOR@users.noreply.github.com"     
           git add test.txt
           git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
-          git push origin ${{ env.GITHUB_HEAD_REF }}
+          git push origin $GITHUB_HEAD_REF
