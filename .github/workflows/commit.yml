@@ -1,0 +1,35 @@
+name: Commit File
+
+on:
+#   push:
+#     branches:
+#       - main
+  pull_request:
+    branches: ["main"]
+    types: [closed, opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  commit-file:
+    name: Generate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Create File
+        run: |
+          date +%s > test.txt
+
+      - uses: EndBug/add-and-commit@v9 
+        with:
+          add: 'test.txt'
+          author_name: ${{ github.actor }}
+          author_email: ${{ github.actor }}@users.noreply.github.com
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: Commit from GitHub Actions to update a file
+          push: true

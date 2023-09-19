@@ -1,9 +1,10 @@
 name: Dev Docker Image CI
 
 on:
-  push:
-    branches:
-      - "main"
+  # push:
+  #   branches:
+  #     - "main"
+  workflow_dispatch:
 
 env:
   DOCKER_REGISTRY: ${{ secrets.DOCKERHUB_USERNAME }}
