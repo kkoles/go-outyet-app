@@ -15,6 +15,9 @@ on:
       - 'poetry.lock'
       - 'pyproject.toml'
 
+env:
+  UPDATE_FILE: test.txt
+
 jobs:
   update-file:
     name: Update
@@ -33,14 +36,14 @@ jobs:
 
       - name: Create File
         run: |
-          date +%s > test.txt
+          date +%s > ${{ env.UPDATE_FILE }}
 
       - uses: EndBug/add-and-commit@v9 
         with:
-          add: 'test.txt'
+          add: '${{ env.UPDATE_FILE }}'
           author_name: ${{ github.actor }}
           author_email: ${{ github.actor }}@users.noreply.github.com
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: Commit from GitHub Actions to update a file
+          message: Commit from GitHub Actions to update ${{ env.UPDATE_FILE }} file
           push: true
