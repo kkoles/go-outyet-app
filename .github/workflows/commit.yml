@@ -11,31 +11,25 @@ on:
 
 jobs:
   commit-file:
-    env:
-      CI_COMMIT_MESSAGE: Continuous Integration File Update
-      CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} Continuous Integration
     name: Generate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Create File
         run: |
           date +%s > test.txt
 
-      - name: Env
-        run: env
-
-      - name: Echo
-        run: |
-            echo $GITHUB_HEAD_REF
-            echo $GITHUB_TRIGGERING_ACTOR
-   
-      - name: Commit file
-        run: |
-          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-          git config --global user.email "$GITHUB_TRIGGERING_ACTOR@users.noreply.github.com"     
-          git add test.txt
-          git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
-          git push origin $GITHUB_HEAD_REF
+      - uses: EndBug/add-and-commit@v9 
+        with:
+          add: 'test.txt'
+          author_name: ${{ github.actor }}
+          author_email: ${{ github.actor }}@users.noreply.github.com
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: Commit from GitHub Actions to update a file
+          push: true
