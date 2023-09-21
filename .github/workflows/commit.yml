@@ -47,6 +47,6 @@ jobs:
 
       - name: Install postgresql-client
         run: |
-          sudo apt-get install postgresql-client
+          sudo apt-get install --no-install-recommends postgresql-client
           psql --version
 
