@@ -10,10 +10,10 @@ on:
       - 'pyproject.toml'
   push:
     branches: ["main"]
-    paths:
-      - '**.py'
-      - 'poetry.lock'
-      - 'pyproject.toml'
+    # paths:
+    #   - '**.py'
+    #   - 'poetry.lock'
+    #   - 'pyproject.toml'
 
 jobs:
   update-file:
@@ -35,12 +35,15 @@ jobs:
         run: |
           date +%s > test.txt
 
-      - uses: EndBug/add-and-commit@v9 
-        with:
-          add: 'test.txt'
-          author_name: ${{ github.actor }}
-          author_email: ${{ github.actor }}@users.noreply.github.com
-          committer_name: GitHub
-          committer_email: noreply@github.com
-          message: Commit from GitHub Actions to update a file
-          push: true
+      # - uses: EndBug/add-and-commit@v9 
+      #   with:
+      #     add: 'test.txt'
+      #     author_name: ${{ github.actor }}
+      #     author_email: ${{ github.actor }}@users.noreply.github.com
+      #     committer_name: GitHub
+      #     committer_email: noreply@github.com
+      #     message: Commit from GitHub Actions to update a file
+      #     push: true
+
+      - name: Install postgresql-client
+        run: apt-get install postgresql-client
