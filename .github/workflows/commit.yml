@@ -45,8 +45,8 @@ jobs:
       #     message: Commit from GitHub Actions to update a file
       #     push: true
 
-      - name: Install postgresql-client
+      - name: Install psql
         run: |
-          sudo apt-get install --no-install-recommends postgresql-client
+          sudo apt-get install --yes --no-install-recommends postgresql-client
           psql --version
 
