@@ -46,4 +46,4 @@ jobs:
       #     push: true
 
       - name: Install postgresql-client
-        run: apt-get install postgresql-client
+        run: sudo apt-get install postgresql-client
