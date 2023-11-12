@@ -1,15 +1,16 @@
 name: Commit File
 
 on:
-  pull_request:
-    branches: ["main"]
-    types: [opened, synchronize, reopened]
-    paths:
-      - '**.py'
-      - 'poetry.lock'
-      - 'pyproject.toml'
-  push:
-    branches: ["main"]
+  workflow_dispatch:
+  # pull_request:
+  #   branches: ["main"]
+  #   types: [opened, synchronize, reopened]
+  #   paths:
+  #     - '**.py'
+  #     - 'poetry.lock'
+  #     - 'pyproject.toml'
+  # push:
+  #   branches: ["main"]
     # paths:
     #   - '**.py'
     #   - 'poetry.lock'
