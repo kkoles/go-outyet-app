@@ -26,7 +26,7 @@ jobs:
           - { version: "14", image: "postgres:14.7-alpine", latest: true }
           - { version: "13", image: "postgres:13.12-alpine", latest: false }
     env:
-      TEST_ENV: my-test-value/test-${{ matrix.postgres.version }}
+      TEST_ENV: '${{ env.DOCKER_REGISTRY_IMAGE }}/${{ env.DOCKER_DIGESTS_PATH }}/my-test-value/test-${{ matrix.postgres.version }}'
     
     steps:
       - name: Checkout project
