@@ -5,7 +5,7 @@ on:
   #   - cron: '0 0 1 * *'
   workflow_dispatch:
 
-name: Push Tag
+name: Bump tag version
 
 jobs:
   build:
@@ -20,4 +20,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           default_bump: patch
           tag_prefix: v
-          dry_run: true
+          # dry_run: true
+
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
